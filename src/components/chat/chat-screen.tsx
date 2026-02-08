@@ -10,10 +10,15 @@ import { TamboProvider } from "@tambo-ai/react";
 type Theme = "light" | "dark";
 
 function applyTheme(theme: Theme) {
+  if (typeof document === "undefined") return;
   document.documentElement.classList.toggle("dark", theme === "dark");
 }
 
 function getPreferredTheme(): Theme {
+  if (typeof window === "undefined") {
+    return "light";
+  }
+
   let storedTheme: string | null = null;
   try {
     storedTheme = window.localStorage.getItem("theme");
