@@ -14,16 +14,23 @@ const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 
 const THEME_STORAGE_KEY = "appTheme";
 
+function hasWindow(): boolean {
+  return typeof window !== "undefined";
+}
+
 function applyTheme(theme: Theme) {
+  if (!hasWindow()) return;
   document.documentElement.classList.toggle("dark", theme === "dark");
 }
 
 function readStoredTheme(): Theme {
+  if (!hasWindow()) return "light";
   const raw = window.localStorage.getItem(THEME_STORAGE_KEY);
   return raw === "dark" ? "dark" : "light";
 }
 
 function writeStoredTheme(theme: Theme) {
+  if (!hasWindow()) return;
   window.localStorage.setItem(THEME_STORAGE_KEY, theme);
 }
 

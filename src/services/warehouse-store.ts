@@ -5,6 +5,8 @@ export const WAREHOUSE_MAX_CAPACITY_KG = 1_000_000;
 const STORAGE_KEY = "warehouseApp.v1";
 const STORAGE_EVENT = "warehouseApp:updated";
 
+let inMemoryState: WarehouseAppState | null = null;
+
 const dateStringSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/u, "Expected YYYY-MM-DD date string");
@@ -129,21 +131,32 @@ export function readWarehouseAppState(): WarehouseAppState {
   const fallback = getDefaultState();
   if (!hasWindow()) return fallback;
 
-  const raw = window.localStorage.getItem(STORAGE_KEY);
-  if (!raw) return fallback;
+  let raw: string | null = null;
+  try {
+    raw = window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return inMemoryState ?? fallback;
+  }
+
+  if (!raw) return inMemoryState ?? fallback;
 
   try {
     const parsed = warehouseAppStateSchema.safeParse(JSON.parse(raw));
-    if (!parsed.success) return fallback;
+    if (!parsed.success) return inMemoryState ?? fallback;
     return parsed.data;
   } catch {
-    return fallback;
+    return inMemoryState ?? fallback;
   }
 }
 
 function writeWarehouseAppState(state: WarehouseAppState) {
   if (!hasWindow()) return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  inMemoryState = state;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // Ignore persistence errors; inMemoryState keeps the app functional.
+  }
 }
 
 function emitWarehouseAppUpdated(state: WarehouseAppState) {

@@ -62,11 +62,32 @@ export function WarehouseExplorer(props: WarehouseExplorerProps) {
     event.preventDefault();
     if (!selectedWarehouseId) return;
 
+    if (!name.trim()) {
+      setError("Good name is required.");
+      return;
+    }
+    if (!expiryDate) {
+      setError("Expiry date is required.");
+      return;
+    }
+    if (!Number.isFinite(quantity) || quantity <= 0) {
+      setError("Quantity must be a positive number.");
+      return;
+    }
+    if (!Number.isFinite(unitWeightKg) || unitWeightKg <= 0) {
+      setError("Unit weight must be a positive number.");
+      return;
+    }
+    if (!Number.isFinite(tickets) || tickets < 0) {
+      setError("Tickets must be a non-negative number.");
+      return;
+    }
+
     try {
       setError("");
       addGoodToWarehouse({
         warehouseId: selectedWarehouseId,
-        name,
+        name: name.trim(),
         quantity,
         unitWeightKg,
         expiryDate,
