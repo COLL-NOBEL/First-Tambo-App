@@ -125,6 +125,12 @@ export default function Home() {
                 >
                   Interactables Demo →
                 </a>
+                <a
+                  href="/warehouse"
+                  className="px-6 py-3 rounded-md font-medium shadow-sm transition-colors text-lg mt-4 bg-[#A9D6FF] hover:bg-[#97c6f3] text-gray-800"
+                >
+                  Warehouse App →
+                </a>
               </div>
             </ApiKeyCheck>
           </div>
