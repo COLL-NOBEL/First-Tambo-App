@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeInitializer } from "@/components/theme/theme-initializer";
+import { WarehouseStoreProvider } from "@/lib/warehouse-store";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,11 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeInitializer />
+        <WarehouseStoreProvider>{children}</WarehouseStoreProvider>
       </body>
     </html>
   );

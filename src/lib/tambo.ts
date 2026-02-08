@@ -11,6 +11,22 @@
 import { Graph, graphSchema } from "@/components/tambo/graph";
 import { DataCard, dataCardSchema } from "@/components/ui/card-data";
 import {
+  WarehouseSaveGood,
+  warehouseSaveGoodSchema,
+} from "@/components/tambo/warehouse-save-good";
+import {
+  WarehouseTicket,
+  warehouseTicketSchema,
+} from "@/components/tambo/warehouse-ticket";
+import {
+  WarehouseTicketList,
+  warehouseTicketListSchema,
+} from "@/components/tambo/warehouse-ticket-list";
+import {
+  WarehouseSavedMessage,
+  warehouseSavedMessageSchema,
+} from "@/components/tambo/warehouse-saved-message";
+import {
   getCountryPopulations,
   getGlobalPopulationTrend,
 } from "@/services/population-stats";
@@ -97,6 +113,34 @@ export const components: TamboComponent[] = [
       "A component that displays options as clickable cards with links and summaries with the ability to select multiple items.",
     component: DataCard,
     propsSchema: dataCardSchema,
+  },
+  {
+    name: "WarehouseSaveGood",
+    description:
+      "A form component for saving a good into a warehouse (warehouse 1-15). Generates and saves a unique ticket id when the user clicks Save.",
+    component: WarehouseSaveGood,
+    propsSchema: warehouseSaveGoodSchema,
+  },
+  {
+    name: "WarehouseTicket",
+    description:
+      "Displays details for a single saved warehouse ticket. Use this when the user provides a ticket id.",
+    component: WarehouseTicket,
+    propsSchema: warehouseTicketSchema,
+  },
+  {
+    name: "WarehouseTicketList",
+    description:
+      "Lists all saved ticket ids with just the good name (newest first).",
+    component: WarehouseTicketList,
+    propsSchema: warehouseTicketListSchema,
+  },
+  {
+    name: "WarehouseSavedMessage",
+    description:
+      "Shows a small message describing the most recently saved good and its ticket id.",
+    component: WarehouseSavedMessage,
+    propsSchema: warehouseSavedMessageSchema,
   },
   // Add more components here
 ];

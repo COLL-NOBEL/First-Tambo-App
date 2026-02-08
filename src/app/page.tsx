@@ -1,5 +1,5 @@
-import { ChatScreen } from "@/components/chat/chat-screen";
+import { WarehouseScreen } from "@/components/warehouse/warehouse-screen";
 
 export default function Home() {
-  return <ChatScreen />;
+  return <WarehouseScreen />;
 }
