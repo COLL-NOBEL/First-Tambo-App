@@ -79,8 +79,11 @@ export default function WarehouseAppPage() {
   );
 
   const openView = (viewId: ViewId) => {
-    setActiveView(viewId);
-    markFeatureUsed(viewId);
+    setActiveView((prev) => {
+      const next = prev === viewId ? null : viewId;
+      if (next) markFeatureUsed(viewId);
+      return next;
+    });
   };
 
   const activeContent = (() => {
