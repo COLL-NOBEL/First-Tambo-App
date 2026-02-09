@@ -42,7 +42,9 @@ export function FunctionalitiesPanel({
             <li key={item.id}>
               <button
                 type="button"
-                onClick={() => onSelect(item.id)}
+                onClick={() => {
+                  if (!isActive) onSelect(item.id);
+                }}
                 className={cn(
                   "w-full text-left rounded-md px-3 py-2 transition-colors",
                   "hover:bg-muted/40",

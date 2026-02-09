@@ -84,7 +84,8 @@ function WarehouseMain({ activeId }: { activeId: string }) {
 }
 
 function WarehouseAppShell() {
-  const [activeId, setActiveId] = useState<string>(warehouseFunctionalities[0].id);
+  const initialId = warehouseFunctionalities[0]?.id ?? "inventory";
+  const [activeId, setActiveId] = useState<string>(initialId);
 
   return (
     <div className="flex h-screen bg-background text-foreground">
